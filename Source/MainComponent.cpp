@@ -21,7 +21,9 @@ MainComponent::MainComponent()
 MainComponent::~MainComponent()
 {
     // This shuts down the GL system and stops the rendering calls.
-    //shutdownOpenGL();
+#if !USE_CUSTOM_GL_CONTEXT
+    shutdownOpenGL();
+#endif
 }
 
 //==============================================================================
@@ -40,7 +42,19 @@ void MainComponent::render()
     // This clears the context with a black background.
     juce::OpenGLHelpers::clear (juce::Colours::grey);
 
-    // Add your rendering code here...
+    using namespace juce::gl;
+    
+    glViewport(0, 0, getWidth(), getHeight());
+    std::array<float, 6> vert = {
+        0.f, 0.f,
+        1.f, 0.f,
+        0.5f, 1.f
+    };
+    glColor4f(1.f, 0.f, 0.f, 1.f);
+    glEnableClientState(juce::gl::GL_VERTEX_ARRAY);
+    glVertexPointer(2, GL_FLOAT, 0, vert.data());
+    glDrawArrays(GL_TRIANGLES, 0, vert.size() / 2);
+    glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 //==============================================================================
