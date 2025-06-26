@@ -3,7 +3,7 @@
 #include <JuceHeader.h>
 
 // Set this macro to 1 to use custom OpenGL renderer
-#define USE_CUSTOM_GL_CONTEXT 1
+#define USE_CUSTOM_GL_CONTEXT 0
 
 #if USE_CUSTOM_GL_CONTEXT
 #include "CustomOpenGLRenderer.h"
